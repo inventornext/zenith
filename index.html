@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="A personal command centre for weather, news, research, productivity and useful live information.">
+  <title>Command Centre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-mark">⌘</span><span>COMMAND<span class="brand-muted">CENTRE</span></span></a>
+    <div class="top-meta"><span class="live-dot"></span><span id="system-status">CONNECTING</span><span class="top-divider"></span><span id="clock">--:--:--</span><span id="date">---</span></div>
+    <button class="icon-button" id="refresh-all" title="Refresh live data" aria-label="Refresh live data">↻</button>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div><div class="eyebrow">PERSONAL OPERATING SPACE <span class="eyebrow-line"></span></div>
+        <h1 id="greeting">Good evening.</h1>
+        <p class="hero-sub">Your world, in one place. <span id="today-label"></span></p>
+      </div>
+      <div class="hero-actions"><button class="button button-quiet" id="edit-settings">⚙ Settings</button><a class="button button-primary" href="#quicklinks">Open workspace <span>↗</span></a></div>
+    </section>
+
+    <nav class="module-nav"><a href="#mission-control">Mission</a><a href="#companion">Babu</a><a href="#arcade">Arcade</a><a href="#earth">Earth</a><a href="#daily-intel">Discover</a><a href="#city-battle">City battle</a><a href="#rabbit-hole">Rabbit hole</a><a href="#timeline">Timeline</a></nav>
+    <section class="weather-grid" id="weather-grid"><article class="weather-card weather-ranchi">
+<div class="weather-top"><div><div class="eyebrow">LIVE WEATHER / JHARKHAND</div><h2>Ranchi</h2></div><span class="weather-symbol" id="icon-ranchi">◌</span></div>
+<div class="weather-main"><div class="temperature" id="temp-ranchi">--°</div><div><div class="weather-description" id="desc-ranchi">Loading weather…</div><div class="weather-feels" id="feels-ranchi">Feels like --°</div><div class="weather-feels" id="highlow-ranchi">Today --° / --°</div></div></div>
+<div class="weather-stats"><div><span>HUMIDITY</span><b id="humidity-ranchi">--%</b></div><div><span>WIND</span><b id="wind-ranchi">-- km/h</b></div><div><span>PRECIPITATION</span><b id="rain-ranchi">-- mm</b></div></div>
+<div class="weather-details"><div><span>PRESSURE</span><b id="pressure-ranchi">-- hPa</b></div><div><span>VISIBILITY</span><b id="visibility-ranchi">-- km</b></div><div><span>CLOUD COVER</span><b id="cloud-ranchi">--%</b></div><div><span>WIND GUSTS</span><b id="gust-ranchi">-- km/h</b></div><div><span>UV INDEX</span><b id="uv-ranchi">--</b></div><div><span>WIND DIRECTION</span><b id="direction-ranchi">--</b></div><div><span>SUNRISE</span><b id="sunrise-ranchi">--</b></div><div><span>SUNSET</span><b id="sunset-ranchi">--</b></div></div>
+<div class="weather-foot"><span id="updated-ranchi">Fetching live conditions</span><span id="aqi-ranchi">AQI --</span></div>
+<div class="forecast-heading"><b>Next 24 hours</b><span>HOURLY OUTLOOK</span></div><div class="hourly-strip" id="hourly-ranchi"><span class="forecast-loading">Loading hourly forecast…</span></div>
+<div class="forecast-heading"><b>7-day forecast</b><span>DAILY OUTLOOK</span></div><div class="forecast-grid" id="forecast-ranchi"><span class="forecast-loading">Loading forecast…</span></div>
+</article><article class="weather-card weather-kharagpur">
+<div class="weather-top"><div><div class="eyebrow">LIVE WEATHER / WEST BENGAL</div><h2>Kharagpur</h2></div><span class="weather-symbol" id="icon-kharagpur">◌</span></div>
+<div class="weather-main"><div class="temperature" id="temp-kharagpur">--°</div><div><div class="weather-description" id="desc-kharagpur">Loading weather…</div><div class="weather-feels" id="feels-kharagpur">Feels like --°</div><div class="weather-feels" id="highlow-kharagpur">Today --° / --°</div></div></div>
+<div class="weather-stats"><div><span>HUMIDITY</span><b id="humidity-kharagpur">--%</b></div><div><span>WIND</span><b id="wind-kharagpur">-- km/h</b></div><div><span>PRECIPITATION</span><b id="rain-kharagpur">-- mm</b></div></div>
+<div class="weather-details"><div><span>PRESSURE</span><b id="pressure-kharagpur">-- hPa</b></div><div><span>VISIBILITY</span><b id="visibility-kharagpur">-- km</b></div><div><span>CLOUD COVER</span><b id="cloud-kharagpur">--%</b></div><div><span>WIND GUSTS</span><b id="gust-kharagpur">-- km/h</b></div><div><span>UV INDEX</span><b id="uv-kharagpur">--</b></div><div><span>WIND DIRECTION</span><b id="direction-kharagpur">--</b></div><div><span>SUNRISE</span><b id="sunrise-kharagpur">--</b></div><div><span>SUNSET</span><b id="sunset-kharagpur">--</b></div></div>
+<div class="weather-foot"><span id="updated-kharagpur">Fetching live conditions</span><span id="aqi-kharagpur">AQI --</span></div>
+<div class="forecast-heading"><b>Next 24 hours</b><span>HOURLY OUTLOOK</span></div><div class="hourly-strip" id="hourly-kharagpur"><span class="forecast-loading">Loading hourly forecast…</span></div>
+<div class="forecast-heading"><b>7-day forecast</b><span>DAILY OUTLOOK</span></div><div class="forecast-grid" id="forecast-kharagpur"><span class="forecast-loading">Loading forecast…</span></div>
+</article></section>
+
+    <section class="section-block">
+      <div class="section-heading"><div><div class="eyebrow">YOUR DAILY BRIEFING</div><h2>Live intelligence</h2></div><span class="section-note" id="news-updated">NEWS FEED</span></div>
+      <div class="news-layout">
+        <article class="panel news-panel">
+          <div class="panel-head"><div class="tabs" id="news-tabs"><button class="tab active" data-feed="india">India</button><button class="tab" data-feed="ranchi">Ranchi</button><button class="tab" data-feed="world">World</button><button class="tab" data-feed="technology">Technology</button></div><span class="source-label">RSS</span></div>
+          <div id="news-list" class="news-list"><div class="loading-row">Fetching headlines…</div></div>
+          <div class="panel-foot"><span>Headlines via Google News RSS through RSS2JSON</span><a href="https://news.google.com/" target="_blank" rel="noreferrer">Google News ↗</a></div>
+        </article>
+        <aside class="side-stack">
+          <article class="panel compact-panel"><div class="panel-head"><h3>Currency snapshot</h3><span class="source-label">LIVE API</span></div><div class="currency-line"><span>USD / INR</span><strong id="usd-inr">—</strong></div><div class="currency-line"><span>EUR / INR</span><strong id="eur-inr">—</strong></div><div class="currency-line"><span>GBP / INR</span><strong id="gbp-inr">—</strong></div><div class="muted-small" id="currency-updated">Exchange rate feed</div></article>
+          <article class="panel compact-panel"><div class="panel-head"><h3>World clock</h3><span class="source-label">LOCAL TIME</span></div><div class="clock-line"><span>India · IST</span><strong id="clock-ist">--:--</strong></div><div class="clock-line"><span>London</span><strong id="clock-london">--:--</strong></div><div class="clock-line"><span>New York</span><strong id="clock-newyork">--:--</strong></div><div class="clock-line"><span>Tokyo</span><strong id="clock-tokyo">--:--</strong></div></article>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading"><div><div class="eyebrow">FOCUS & EXECUTION</div><h2>Research workspace</h2></div><span class="section-note">SAVED IN THIS BROWSER</span></div>
+      <div class="three-grid">
+        <article class="panel workspace-panel">
+          <div class="panel-head"><h3>Research pipeline</h3><button class="text-button" id="add-paper">＋ Add</button></div>
+          <form id="paper-form" class="inline-form hidden"><input id="paper-title" placeholder="Manuscript / project title" maxlength="100" required><select id="paper-status"><option>In preparation</option><option>Submitted</option><option>Under review</option><option>Major revision</option><option>Minor revision</option><option>Accepted</option><option>Published</option></select><button class="small-button" type="submit">Save</button></form>
+          <div id="paper-list" class="item-list empty-state">Add manuscripts, patents, or research projects to track their status.</div>
+        </article>
+        <article class="panel workspace-panel">
+          <div class="panel-head"><h3>Task list</h3><span class="source-label">TO-DO</span></div>
+          <form id="task-form" class="inline-form"><input id="task-input" placeholder="Add a task…" maxlength="120" required><button class="small-button" type="submit">＋</button></form>
+          <div id="task-list" class="item-list empty-state">Your tasks will appear here.</div>
+        </article>
+        <article class="panel workspace-panel">
+          <div class="panel-head"><h3>Quick notes</h3><span class="source-label">AUTOSAVE</span></div>
+          <div class="notes-preview" id="notes-preview">Your notebook is ready. Open the full-page notepad to write, plan, or collect ideas.</div><a class="inline-link" href="#notepad">Open full notepad ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-heading"><div><div class="eyebrow">TOOLS & SHORTCUTS</div><h2>Your digital toolbox</h2></div><button class="text-button" id="add-link">＋ Custom link</button></div>
+      <div class="quick-grid" id="quicklinks">
+        <a class="quick-card" href="https://scholar.google.com/" target="_blank" rel="noreferrer"><span class="quick-icon">⌕</span><span><b>Google Scholar</b><small>Research discovery</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://orcid.org/" target="_blank" rel="noreferrer"><span class="quick-icon">◉</span><span><b>ORCID</b><small>Research identity</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://ieeexplore.ieee.org/" target="_blank" rel="noreferrer"><span class="quick-icon">▤</span><span><b>IEEE Xplore</b><small>Technical literature</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://github.com/" target="_blank" rel="noreferrer"><span class="quick-icon">⌘</span><span><b>GitHub</b><small>Code & repositories</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://www.overleaf.com/" target="_blank" rel="noreferrer"><span class="quick-icon">𝑇</span><span><b>Overleaf</b><small>LaTeX editor</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://www.mathworks.com/" target="_blank" rel="noreferrer"><span class="quick-icon">∿</span><span><b>MATLAB</b><small>Numerical computing</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://www.timeanddate.com/" target="_blank" rel="noreferrer"><span class="quick-icon">◷</span><span><b>Time & Date</b><small>Global time tools</small></span><i>↗</i></a>
+        <a class="quick-card" href="https://www.google.com/maps/" target="_blank" rel="noreferrer"><span class="quick-icon">⌖</span><span><b>Maps</b><small>Places & directions</small></span><i>↗</i></a>
+      </div>
+      <div id="custom-links" class="quick-grid custom-links"></div>
+      <form id="link-form" class="inline-form hidden link-form"><input id="link-name" placeholder="Link name" maxlength="35" required><input id="link-url" placeholder="https://example.com" type="url" required><button class="small-button" type="submit">Save link</button></form>
+    </section>
+
+    <section class="section-block bottom-grid">
+      <article class="panel utility-panel"><div class="panel-head"><h3>Countdown</h3><span class="source-label">PERSONAL</span></div><form id="countdown-form" class="inline-form"><input id="countdown-title" placeholder="Event name" maxlength="50" required><input id="countdown-date" type="date" required><button class="small-button" type="submit">Set</button></form><div id="countdown-display" class="countdown-display"><strong>—</strong><span>No event set</span></div></article>
+      <article class="panel utility-panel"><div class="panel-head"><h3>GitHub profile</h3><span class="source-label">PUBLIC API</span></div><form id="github-form" class="inline-form"><input id="github-user" placeholder="GitHub username" maxlength="39"><button class="small-button" type="submit">Load</button></form><div id="github-profile" class="github-profile"><span class="muted-small">Add your GitHub username to view public profile statistics.</span></div></article>
+      <article class="panel utility-panel"><div class="panel-head"><h3>Air quality guide</h3><span class="source-label">OPEN-METEO</span></div><p class="utility-copy">Air-quality readings are shown beside each city's weather when the upstream service responds. Lower AQI generally indicates cleaner air.</p><a class="inline-link" href="https://air-quality-api.open-meteo.com/" target="_blank" rel="noreferrer">API information ↗</a></article>
+    </section>
+
+    <nav class="module-nav"><a href="#mission-control">Mission</a><a href="#companion">Babu</a><a href="#arcade">Arcade</a><a href="#earth">Earth</a><a href="#daily-intel">Discover</a><a href="#city-battle">City battle</a><a href="#rabbit-hole">Rabbit hole</a><a href="#timeline">Timeline</a></nav>
+    <section class="section-block" id="notepad">
+<div class="section-heading"><div><div class="eyebrow">PERSONAL KNOWLEDGE SPACE</div><h2>My notepad</h2></div><span class="section-note" id="notepad-status">AUTOSAVE · THIS BROWSER</span></div>
+<article class="panel notepad-panel"><div class="notepad-toolbar"><div><span class="notepad-dot"></span><span class="notepad-dot"></span><span class="notepad-dot"></span><span class="notepad-label">UNTITLED NOTES</span></div><div class="notepad-actions"><button class="text-button" id="notepad-clear">Clear</button><button class="text-button" id="notepad-download">Download .txt ↓</button></div></div>
+<textarea id="notes" class="notes notes-large" placeholder="Start writing here…&#10;&#10;Research ideas, paper notes, reminders, plans, questions, links to revisit — keep everything in one place."></textarea>
+<div class="notepad-footer"><span id="notes-status">Your writing is saved automatically in this browser.</span><span id="notes-count">0 words · 0 characters</span></div></article></section><section class="section-block" id="mission-control"><div class="section-heading"><div><div class="eyebrow">COMMAND & CONTROL</div><h2>Mission control</h2></div><span class="section-note">DAILY OBJECTIVES</span></div><div class="mission-grid"><article class="panel mission-main"><div class="mission-banner"><div><span class="source-label">TODAY'S DIRECTIVE</span><h3 id="mission-title">Research. Discover. Build.</h3><p id="mission-subtitle">Choose a mission and make measurable progress.</p></div><div class="mission-emblem">✦</div></div><div class="mission-progress-head"><span>MISSION PROGRESS</span><b id="mission-progress-label">0%</b></div><div class="progress-track"><div id="mission-progress-bar" class="progress-fill"></div></div><div class="mission-stats"><div><strong id="mission-xp">0</strong><span>TOTAL XP</span></div><div><strong id="mission-level">1</strong><span>LEVEL</span></div><div><strong id="mission-streak">0</strong><span>COMPLETED TASKS</span></div></div><div class="mission-actions"><button class="small-button" id="new-mission">↻ New daily mission</button><button class="text-button" id="claim-mission">Claim daily bonus +25 XP</button></div></article><article class="panel objectives-panel"><div class="panel-head"><h3>Mission objectives</h3><span class="source-label">TASK LINK</span></div><p class="utility-copy">Complete tasks in your task list to earn 10 XP each.</p><div id="mission-objectives" class="objective-list"></div></article></div></section>
+    <section class="section-block" id="companion"><div class="section-heading"><div><div class="eyebrow">LIFEFORM MONITOR</div><h2>Meet Babu</h2></div><span class="section-note">VIRTUAL COMPANION</span></div><div class="companion-grid"><article class="panel pet-panel"><div class="pet-stage"><div class="pet-orbit"></div><div class="pet-orbit orbit-two"></div><button class="pet-snake" id="pet-snake" aria-label="Pet Babu">🐍</button><span class="pet-spark spark-one">✦</span><span class="pet-spark spark-two">✧</span></div><div class="pet-info"><div><h3 id="pet-mood">Babu is happy</h3><p id="pet-message">Your tiny digital companion is ready.</p></div><span class="pet-level" id="pet-level">LVL 1</span></div><div class="pet-meters"><div><span>HUNGER</span><div class="meter"><i id="pet-hunger-meter"></i></div></div><div><span>HAPPINESS</span><div class="meter"><i id="pet-happy-meter"></i></div></div></div><div class="pet-actions"><button class="small-button" id="pet-feed">🍎 Feed Babu</button><button class="small-button secondary" id="pet-play">🎾 Play</button><button class="small-button secondary" id="pet-pat">♡ Pet</button></div></article><article class="panel pet-log"><div class="panel-head"><h3>Babu's diary</h3><span class="source-label">LIVE REACTIONS</span></div><div id="pet-diary" class="diary-entry">Babu slithered into your command centre. Say hello!</div><div class="pet-fact"><span class="source-label">SNAKE FACT</span><p>Snakes use their tongues to collect chemical particles and interpret their surroundings.</p></div></article></div></section>
+    <section class="section-block" id="arcade"><div class="section-heading"><div><div class="eyebrow">RECREATION MODULE</div><h2>Arcade corner</h2></div><span class="section-note">TAKE A SHORT BREAK</span></div><div class="arcade-grid"><article class="panel game-panel"><div class="panel-head"><h3>Snake classic</h3><span class="source-label">ARROWS / WASD</span></div><canvas id="snake-canvas" width="320" height="320"></canvas><div class="game-controls"><span>Score: <b id="snake-score">0</b> · Best: <b id="snake-best">0</b></span><button class="small-button" id="snake-start">Start / Restart</button></div><div class="mobile-arrows"><button data-dir="up">↑</button><div><button data-dir="left">←</button><button data-dir="down">↓</button><button data-dir="right">→</button></div></div></article><article class="panel game-panel"><div class="panel-head"><h3>Reaction test</h3><span class="source-label">REFLEX CHECK</span></div><button id="reaction-target" class="reaction-target"><span id="reaction-label">Click to begin</span><small id="reaction-best">Best: — ms</small></button><p class="utility-copy" id="reaction-help">Wait until the panel turns green, then click as quickly as possible.</p></article><article class="panel game-panel puzzle-panel"><div class="panel-head"><h3>Number challenge</h3><span class="source-label">GUESS 1–100</span></div><div class="number-game"><div class="number-orb">?</div><p id="guess-hint">I have picked a number. Can you find it?</p><form id="guess-form" class="inline-form"><input id="guess-input" type="number" min="1" max="100" placeholder="Your guess" required><button class="small-button">Guess</button></form><button class="text-button" id="guess-reset">New number ↻</button><div class="muted-small" id="guess-count">Attempts: 0</div></div></article></div></section>
+    <section class="section-block" id="earth"><div class="section-heading"><div><div class="eyebrow">PLANETARY MONITORING</div><h2>Earth observatory</h2></div><span class="section-note">OPEN GLOBAL DATA</span></div><div class="earth-grid"><article class="panel earth-map-panel"><div class="panel-head"><h3>Global seismic activity</h3><span class="source-label">USGS · PAST 24 HOURS</span></div><div id="earthquake-map" class="earth-map"><div class="map-placeholder">Loading global earthquake map…</div></div><div class="map-legend"><span>🔵 M2.5–4.9</span><span>🟠 M5.0–5.9</span><span>🔴 M6.0+</span></div></article><article class="panel earth-side"><div class="panel-head"><h3>Planet watch</h3><span class="source-label">LIVE / RECENT</span></div><div class="iss-block"><span class="source-label">INTERNATIONAL SPACE STATION</span><strong id="iss-position">Locating ISS…</strong><span id="iss-detail" class="muted-small">Approximate orbital position.</span></div><div class="panel-subhead">Largest recent earthquakes</div><div id="quake-list" class="quake-list">Loading USGS feed…</div><a class="inline-link" href="https://earthquake.usgs.gov/earthquakes/map/" target="_blank" rel="noreferrer">Explore USGS map ↗</a></article></div></section>
+    <section class="section-block" id="daily-intel">
+<div class="section-heading"><div><div class="eyebrow">YOUR DAILY BRIEFING</div><h2>Daily intelligence</h2></div><span class="section-note">FRESH IDEAS · HISTORY · CULTURE</span></div>
+<div class="intel-grid intel-grid-four">
+<article class="panel intel-card"><div class="panel-head"><h3>On this day in history</h3><span class="source-label">TODAY</span></div><div id="history-content" class="intel-content">Loading historical events…</div><a id="history-link" class="inline-link" href="https://en.wikipedia.org/wiki/On_this_day" target="_blank" rel="noreferrer">Explore this date ↗</a></article>
+<article class="panel intel-card"><div class="panel-head"><h3>Upcoming Hindu festivals</h3><span class="source-label">INDIA · 2026</span></div><div id="festival-content" class="festival-list">Loading festival calendar…</div><div class="muted-small">Dates can vary by regional Panchang and local observance.</div><a class="inline-link" href="https://www.drikpanchang.com/calendars/hindu/hinducalendar.html" target="_blank" rel="noreferrer">Check regional Panchang ↗</a></article>
+<article class="panel intel-card quote-card"><div class="panel-head"><h3>Quote of the day</h3><span class="source-label">DAILY THOUGHT</span></div><div class="quote-mark">“</div><blockquote id="quote-text">The secret of getting ahead is getting started.</blockquote><div id="quote-author" class="quote-author">— Mark Twain</div><button class="text-button" id="new-quote">Another quote ↻</button></article>
+<article class="panel intel-card"><div class="panel-head"><h3>Daily discovery</h3><span class="source-label">CURIOSITY ENGINE</span></div><div class="intel-content"><b id="discovery-title">Find something unexpected.</b><br><span id="discovery-summary"></span></div><a id="discovery-link" class="inline-link" href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" rel="noreferrer">Open article ↗</a><button class="text-button" id="new-discovery">Surprise me ↗</button></article>
+</div></section>
+    <section class="section-block" id="city-battle"><div class="section-heading"><div><div class="eyebrow">LOCAL WEATHER DERBY</div><h2>Ranchi vs Kharagpur</h2></div><span class="section-note">LIVE CITY BATTLE</span></div><article class="panel battle-panel"><div class="battle-cities"><div><span class="source-label">JHARKHAND</span><h3>Ranchi</h3><strong id="battle-ranchi-temp">--°</strong><span id="battle-ranchi-desc">Loading…</span></div><div class="versus">VS</div><div><span class="source-label">WEST BENGAL</span><h3>Kharagpur</h3><strong id="battle-kharagpur-temp">--°</strong><span id="battle-kharagpur-desc">Loading…</span></div></div><div class="battle-result" id="battle-result">Waiting for both city readings…</div><div class="battle-metrics"><div><span>HUMIDITY</span><b id="battle-humidity">—</b></div><div><span>WIND SPEED</span><b id="battle-wind">—</b></div><div><span>AIR QUALITY</span><b id="battle-aqi">—</b></div></div><p class="muted-small">A playful comparison, not a quality-of-life ranking.</p></article></section>
+    <section class="section-block" id="rabbit-hole"><div class="section-heading"><div><div class="eyebrow">UNPLANNED EXPLORATION</div><h2>Rabbit hole generator</h2></div><span class="section-note">FOLLOW YOUR CURIOSITY</span></div><article class="panel rabbit-panel"><div class="rabbit-symbol">↗</div><div class="rabbit-copy"><span class="source-label">YOUR NEXT DETOUR</span><h3 id="rabbit-title">One click. One unexpected topic.</h3><p id="rabbit-summary">Discover an unfamiliar invention, person, place, scientific concept or historical event.</p><a id="rabbit-open" class="inline-link" href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">Open article ↗</a></div><button class="button button-primary" id="rabbit-spin">Surprise me ↗</button></article></section>
+    <section class="section-block" id="timeline"><div class="section-heading"><div><div class="eyebrow">YOUR PERSONAL RECORD</div><h2>Milestone timeline</h2></div><button class="text-button" id="timeline-add">＋ Add milestone</button></div><article class="panel timeline-panel"><form id="timeline-form" class="inline-form hidden"><input id="timeline-title" placeholder="Milestone title" maxlength="100" required><input id="timeline-date" type="date" required><select id="timeline-type"><option>Research</option><option>Publication</option><option>Patent</option><option>Personal</option><option>Career</option></select><button class="small-button">Save</button></form><div id="timeline-list" class="timeline-list"><div class="empty-state">Record milestones you want to remember.</div></div></article></section>
+
+    <footer><span>COMMAND CENTRE <span class="footer-dot">·</span> Built for your daily workflow</span><span>Weather: Open-Meteo <span class="footer-dot">·</span> News: Google News RSS <span class="footer-dot">·</span> Rates: Frankfurter</span></footer>
+  </main>
+
+  <dialog id="settings-dialog" class="settings-dialog"><form method="dialog"><div class="panel-head"><h3>Dashboard settings</h3><button class="icon-button" aria-label="Close">×</button></div><p class="muted-small">Personalize your dashboard. These settings stay in this browser.</p><label>GitHub username<input id="settings-github" placeholder="your-username"></label><label>News country / language<select id="settings-news"><option value="IN:en">India · English</option><option value="IN:hi">India · Hindi</option><option value="US:en">United States · English</option><option value="GB:en">United Kingdom · English</option></select></label><div class="dialog-actions"><button class="button button-primary" id="save-settings" value="default">Save settings</button></div></form></dialog>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
