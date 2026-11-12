@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#05080c">
+  <meta name="description" content="ZENITH: a personal control room for weather, Panchang, research, projects, focus and news.">
+  <title>ZENITH · Personal Control Room</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2305080c'/%3E%3Cpath d='M5 25 Q16 1 27 25' fill='none' stroke='%233cff9a' stroke-width='2.5'/%3E%3Ccircle cx='16' cy='13' r='3.2' fill='%23ffb547'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://api.open-meteo.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-phase="night">
+<div class="bg-grid" aria-hidden="true"></div>
+
+<header class="topbar" id="top">
+  <a class="brand" href="#top" aria-label="ZENITH home">
+    <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 26 Q16 0 28 26" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="16" cy="13" r="3.4" class="brand-sun"/></svg>
+    <span class="brand-text">ZENITH<small>PERSONAL CONTROL ROOM</small></span>
+  </a>
+  <div class="leds" id="leds" aria-label="Feed status">
+    <span class="led" data-feed="wx" title="Weather">WX</span>
+    <span class="led" data-feed="news" title="News">NEWS</span>
+    <span class="led" data-feed="wiki" title="Wikipedia">WIKI</span>
+    <span class="led" data-feed="gh" title="GitHub">GIT</span>
+    <span class="led" data-feed="cric" title="Cricket">CRIC</span>
+  </div>
+  <div class="top-right">
+    <span class="top-clock mono" id="top-clock">--:--</span>
+    <button id="refresh-all" class="btn">↻ Refresh</button>
+  </div>
+</header>
+
+<main class="shell">
+
+  <!-- HERO -->
+  <section class="hero">
+    <article class="panel hero-main">
+      <canvas id="scope" class="scope" aria-hidden="true"></canvas>
+      <div class="hero-content">
+        <div class="eyebrow"><span id="greeting">Good day</span> · <span id="phase-label">IST</span></div>
+        <div class="big-clock mono" id="clock">--:--<span>:--</span></div>
+        <div class="hero-date" id="today-label">Loading date…</div>
+        <div class="hero-hindu" id="hindu-date">Calculating Panchang…</div>
+        <div class="hero-foot">
+          <span class="freq mono"><i class="pulse"></i>50.00 Hz <em>NOMINAL TRACE</em></span>
+          <a class="inline-link" href="https://grid-india.in/" target="_blank" rel="noopener noreferrer">Live India grid frequency at Grid-India ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="panel panchang">
+      <div class="panel-head"><h3>Panchang</h3>
+        <select id="panchang-city" class="select" aria-label="Panchang location">
+          <option value="kharagpur">Kharagpur</option><option value="ranchi">Ranchi</option><option value="varanasi">Varanasi</option>
+        </select>
+      </div>
+      <div class="pc-grid">
+        <div><span>TITHI</span><b id="pc-tithi">--</b><small id="pc-tithi-end">--</small></div>
+        <div><span>NAKSHATRA</span><b id="pc-nak">--</b><small>Moon, sidereal (Lahiri)</small></div>
+        <div><span>SUNRISE</span><b id="pc-rise" class="mono">--</b></div>
+        <div><span>SUNSET</span><b id="pc-set" class="mono">--</b></div>
+      </div>
+      <div class="rahu" id="pc-rahu-box"><span>RAHU KAAL</span><b id="pc-rahu" class="mono">--</b><em id="pc-rahu-state"></em></div>
+      <div class="lunar-next" id="pc-lunar"></div>
+      <div class="muted-small">Calculated in your browser from astronomical formulas. Tithi times are usually within a few minutes of Drik Panchang.</div>
+    </article>
+  </section>
+
+  <!-- COUNTDOWNS + FOCUS -->
+  <section class="row two">
+    <article class="panel">
+      <div class="panel-head"><h3>Countdowns</h3><button class="btn small" id="add-countdown">+ Add</button></div>
+      <div id="countdown-list" class="countdowns"></div>
+    </article>
+
+    <article class="panel focus">
+      <div class="panel-head"><h3>Focus</h3><span class="source-label" id="pomo-count">0 SESSIONS TODAY</span></div>
+      <div class="focus-grid">
+        <div class="pomo">
+          <svg viewBox="0 0 120 120" class="pomo-ring"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle cx="60" cy="60" r="52" class="ring-fg" id="pomo-ring"/></svg>
+          <div class="pomo-center"><b class="mono" id="pomo-time">25:00</b><span id="pomo-mode">FOCUS</span></div>
+          <div class="pomo-modes">
+            <button class="chip active" data-mode="focus">25</button><button class="chip" data-mode="short">5</button><button class="chip" data-mode="long">15</button>
+          </div>
+          <div class="pomo-actions"><button class="btn" id="pomo-start">▶ Start</button><button class="btn ghost" id="pomo-reset">Reset</button></div>
+        </div>
+        <div class="habits">
+          <div class="habits-head"><b>Daily habits</b><button class="text-button" id="add-habit">+ Habit</button></div>
+          <div class="habit-days mono" id="habit-days"></div>
+          <div id="habit-list"></div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- RESEARCH + PROJECTS -->
+  <section class="row research-row">
+    <article class="panel">
+      <div class="panel-head"><h3>Research tracker</h3><button class="btn small" id="add-paper">+ Paper</button></div>
+      <div class="table-wrap"><table class="research" id="research-table">
+        <thead><tr><th>Paper</th><th>Journal</th><th>Status</th><th class="num">Days</th><th></th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div class="muted-small">"Days" counts from when the current status began. Stored only in this browser.</div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head"><h3>Projects</h3>
+        <div class="tabs small" id="project-tabs"><button class="tab active" data-kind="all">All</button><button class="tab" data-kind="App">Apps</button><button class="tab" data-kind="Game">Games</button><button class="tab" data-kind="Book">Books</button><button class="tab" data-kind="Site">Sites</button></div>
+      </div>
+      <div id="project-list" class="projects"></div>
+      <button class="btn small block" id="add-project">+ Project</button>
+    </article>
+  </section>
+
+  <!-- GITHUB + CRICKET + TRAINS -->
+  <section class="row three">
+    <article class="panel github">
+      <div class="panel-head"><h3>GitHub · <a id="gh-user-link" href="https://github.com/inventornext" target="_blank" rel="noopener noreferrer">inventornext</a></h3><span class="source-label" id="gh-updated">PUBLIC ACTIVITY</span></div>
+      <div class="gh-stats" id="gh-stats"></div>
+      <div class="heatmap-wrap"><div class="heatmap" id="gh-heatmap"></div><div class="heat-legend mono">LESS <i></i><i></i><i></i><i></i><i></i> MORE</div></div>
+      <div class="gh-repos" id="gh-repos">Loading repositories…</div>
+      <div class="muted-small">Last 12 weeks of public events. Private repo work does not appear.</div>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head"><h3>Cricket</h3><span class="source-label" id="cric-source">LIVE SCORES</span></div>
+      <div id="cric-list" class="feed-list">Fetching scores…</div>
+      <a class="inline-link" href="https://www.cricbuzz.com/cricket-match/live-scores" target="_blank" rel="noopener noreferrer">Full scorecards on Cricbuzz ↗</a>
+    </article>
+
+    <article class="panel">
+      <div class="panel-head"><h3>Trains</h3><span class="source-label">KGP ⇄ RNC</span></div>
+      <form class="train-form" id="train-form"><input id="train-no" class="input mono" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" placeholder="Train no." aria-label="Train number"><button class="btn small">Live status ↗</button></form>
+      <div id="train-list" class="train-list"></div>
+      <div class="train-links">
+        <a class="inline-link" href="https://www.google.com/search?q=trains+from+Kharagpur+to+Ranchi" target="_blank" rel="noopener noreferrer">Kharagpur → Ranchi ↗</a>
+        <a class="inline-link" href="https://www.google.com/search?q=trains+from+Ranchi+to+Kharagpur" target="_blank" rel="noopener noreferrer">Ranchi → Kharagpur ↗</a>
+        <a class="inline-link" href="https://enquiry.indianrail.gov.in/mntes/" target="_blank" rel="noopener noreferrer">NTES ↗</a>
+      </div>
+    </article>
+  </section>
+
+  <!-- WEATHER -->
+  <section class="section-block">
+    <div class="section-heading"><div><div class="eyebrow">FEEDERS · LIVE CONDITIONS</div><h2>Weather</h2></div><span class="section-note" id="wx-updated">OPEN-METEO</span></div>
+    <div class="row three" id="weather-cards"></div>
+    <article class="panel forecast-panel">
+      <div class="panel-head"><div class="tabs small" id="wx-tabs"><button class="tab active" data-city="ranchi">Ranchi</button><button class="tab" data-city="kharagpur">Kharagpur</button><button class="tab" data-city="varanasi">Varanasi</button></div><span class="source-label">12 H · 7 DAY</span></div>
+      <div class="hourly-strip" id="wx-hourly">Loading hourly forecast…</div>
+      <div class="forecast-grid" id="wx-daily">Loading forecast…</div>
+    </article>
+  </section>
+
+  <!-- NEWS + NOTEPAD -->
+  <section class="row news-row">
+    <article class="panel">
+      <div class="panel-head"><div class="tabs" id="news-tabs"><button class="tab active" data-feed="india">India</button><button class="tab" data-feed="ranchi">Ranchi</button><button class="tab" data-feed="kharagpur">Kharagpur</button><button class="tab" data-feed="varanasi">Varanasi</button><button class="tab" data-feed="world">World</button><button class="tab" data-feed="technology">Tech</button><button class="tab" data-feed="energy">Energy</button></div><span class="source-label" id="news-updated">GOOGLE NEWS</span></div>
+      <div id="news-list" class="news-list">Fetching headlines…</div>
+    </article>
+
+    <article class="panel notepad-panel" id="notepad">
+      <div class="panel-head"><h3>Notepad</h3><div><button class="text-button" id="notepad-clear">Clear</button><button class="text-button" id="notepad-download">.txt ↓</button></div></div>
+      <textarea id="notes" class="notes" placeholder="Research ideas, paper notes, reminders, links to revisit…&#10;&#10;Saved automatically in this browser."></textarea>
+      <div class="notepad-footer mono"><span id="notes-status">Autosave · this browser</span><span id="notes-count">0 words</span></div>
+    </article>
+  </section>
+
+  <!-- DAILY -->
+  <section class="section-block" id="daily-intel">
+    <div class="section-heading"><div><div class="eyebrow">A LITTLE EVERY DAY</div><h2>Daily intelligence</h2></div><span class="section-note" id="daily-date">TODAY</span></div>
+    <div class="row four">
+      <article class="panel"><div class="panel-head"><h3>On this day</h3><span class="source-label">HISTORY</span></div><div id="history-content" class="intel-content">Loading historical events…</div><a id="history-link" class="inline-link" href="https://en.wikipedia.org/wiki/Wikipedia:On_this_day/Today" target="_blank" rel="noopener noreferrer">Explore this date ↗</a></article>
+      <article class="panel"><div class="panel-head"><h3>Festivals ahead</h3><span class="source-label">INDIA</span></div><div id="festival-content" class="festival-list"></div><a class="inline-link" href="https://www.drikpanchang.com/calendars/hindu/hinducalendar.html" target="_blank" rel="noopener noreferrer">Regional Panchang ↗</a></article>
+      <article class="panel quote-card"><div class="panel-head"><h3>Quote of the day</h3><span class="source-label">PERSPECTIVE</span></div><blockquote id="quote-text"></blockquote><div id="quote-author" class="quote-author"></div><button id="new-quote" class="text-button">Another ↻</button></article>
+      <article class="panel"><div class="panel-head"><h3>Topic of the day</h3><span class="source-label">WIKIPEDIA</span></div><h4 id="discovery-title">Loading…</h4><p id="discovery-summary"></p><a id="discovery-link" class="inline-link" href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" rel="noopener noreferrer">Read more ↗</a><button id="new-discovery" class="text-button">Another ↻</button></article>
+    </div>
+  </section>
+
+  <footer>
+    <span class="mono">ZENITH</span>
+    <span class="data-tools">Your data lives in this browser · <button class="text-button" id="export-data">Export</button> · <label class="text-button" for="import-file">Import</label><input type="file" id="import-file" accept="application/json" hidden></span>
+  </footer>
+</main>
+
+<dialog id="editor" class="editor"><form method="dialog" id="editor-form"><h3 id="editor-title">Edit</h3><div id="editor-fields"></div><div class="editor-actions"><button type="button" class="btn ghost danger" id="editor-delete">Delete</button><span></span><button type="button" class="btn ghost" id="editor-cancel">Cancel</button><button class="btn" id="editor-save" value="save">Save</button></div></form></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="panchang.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
